@@ -1,32 +1,31 @@
 syntax = "v1"
 
 type RegisterReq {
-  Username string `json:"username"`
-  Password string `json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
-type RegisterResp {
-
-}
+type RegisterResp {}
 
 type LoginReq {
-  Username string `json:"username"`
-  Password string `json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type LoginResp {
-  Token string `json:"token"`
+	Token string `json:"token"`
 }
 
 @server (
-    group: account
-    prefix: v1
+	// 代表当前service的代码会放在account目录下
+	group:  account
+	prefix: v1
 )
-
 service user-api {
-    @handler register
-    post /user/register (RegisterReq) returns (RegisterResp)
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
 
-    @handler login
-    post /user/login (LoginReq) returns (LoginResp)
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
 }
+
