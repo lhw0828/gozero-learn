@@ -6,6 +6,12 @@ type Config struct {
 	rest.RestConf
 	// 自定义配置
 	MysqlConfig MysqlConfig
+	Auth        Auth
+}
+
+type Auth struct {
+	Secret string
+	Expire int64
 }
 
 type MysqlConfig struct {

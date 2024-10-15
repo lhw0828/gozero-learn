@@ -5,3 +5,7 @@ Port: 8888
 mysqlConfig:
   datasource: "root:123@tcp(127.0.0.1:3306)/zero_test?charset=utf8mb4&parseTime=True&loc=Local"
   connectTimeout: 10
+
+Auth:
+  secret: "secret123456"
+  expire: 3600
