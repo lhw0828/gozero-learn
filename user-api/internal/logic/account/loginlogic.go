@@ -42,7 +42,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	}
 
 	// 登录成功 生成token
-	secret := l.svcCtx.Config.Auth.Secret
+	secret := l.svcCtx.Config.Auth.AccessSecret
 	expire := l.svcCtx.Config.Auth.Expire
 
 	token, err := biz.GetJwtToken(secret, time.Now().Unix(), expire, u.Id)

@@ -10,8 +10,8 @@ type Config struct {
 }
 
 type Auth struct {
-	Secret string
-	Expire int64
+	AccessSecret string
+	Expire       int64
 }
 
 type MysqlConfig struct {

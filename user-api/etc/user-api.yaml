@@ -7,5 +7,5 @@ mysqlConfig:
   connectTimeout: 10
 
 Auth:
-  secret: "secret123456"
+  accessSecret: "secret123456"
   expire: 3600

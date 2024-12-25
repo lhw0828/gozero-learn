@@ -9,6 +9,7 @@ var (
 	UserIsRegistered = NewError(10100, "用户已注册")
 	NameOrPwdError   = NewError(10101, "用户名或密码错误")
 	TokenError       = NewError(10102, "token错误")
+	InvalidToken     = NewError(10103, "token无效")
 )
 
 //var (

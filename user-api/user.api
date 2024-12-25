@@ -16,6 +16,11 @@ type LoginResp {
 	Token string `json:"token"`
 }
 
+type UserInfoResp {
+	Id       int64  `json:"id"`
+	Username string `json:"username"`
+}
+
 @server (
 	// 代表当前service的代码会放在account目录下
 	group:  account
@@ -27,5 +32,17 @@ service user-api {
 
 	@handler login
 	post /user/login (LoginReq) returns (LoginResp)
+}
+
+@server (
+	// 代表当前service的代码会放在account目录下
+	group:  account
+	prefix: v1
+	jwt:    Auth
+)
+service user-api {
+	// 获取用户信息
+	@handler getUserInfo
+	get /user/info returns (UserInfoResp)
 }
 
