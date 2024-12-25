@@ -27,6 +27,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
+	// 1. 校验用户密码
 	userModel := model.NewUserModel(l.svcCtx.Conn)
 
 	u, err := userModel.FindByUsernameAndPwd(l.ctx, req.Username, req.Password)
