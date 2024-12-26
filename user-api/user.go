@@ -24,8 +24,19 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 
-	server := rest.MustNewServer(c.RestConf)
+	// 添加跨域的东西
+	server := rest.MustNewServer(c.RestConf,
+		rest.WithCors("http://localhost:5273"),
+		rest.WithCorsHeaders("xxxx"),
+	)
 	defer server.Stop()
+	// 自定义中间件
+	server.Use(func(next http.HandlerFunc) http.HandlerFunc {
+		return func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Add("X-Middleware", "static-middleware")
+			next(w, r)
+		}
+	})
 
 	// 服务上下文 依赖注入，需要用到的依赖都在此进行注入，比如配置，数据库连接，redis连接等
 	ctx := svc.NewServiceContext(c)

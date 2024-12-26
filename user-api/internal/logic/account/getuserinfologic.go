@@ -36,6 +36,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserInfoResp, err error) {
 	}
 	// 2. 去数据库查询用户是否存在
 	userModel := model.NewUserModel(l.svcCtx.Conn)
+
 	u, err := userModel.FindOne(l.ctx, userId)
 	if err != nil && (errors.Is(err, model.ErrNotFound) || errors.Is(err, sql.ErrNoRows)) {
 		l.Logger.Error("查询用户失败：", err)
