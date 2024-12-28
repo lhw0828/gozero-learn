@@ -9,3 +9,11 @@ mysqlConfig:
 Auth:
   accessSecret: "secret123456"
   expire: 3600
+
+RedisConfig:
+  Host: "127.0.0.1:6379"
+  Pass: ""
+  Type: "node"
+  Tls: false
+  MonBlock: false
+  PingTimeout: 1s

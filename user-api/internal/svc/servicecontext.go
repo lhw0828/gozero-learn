@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"user-api/internal/config"
 	"user-api/internal/db"
@@ -11,14 +12,17 @@ type ServiceContext struct {
 	// 配置
 	Config config.Config
 	// 数据库连接
-	Conn sqlx.SqlConn
+	Mysql sqlx.SqlConn
+	Redis *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	// 数据库连接
-	sqlConn := db.NewMysql(c.MysqlConfig)
+	mysqlConn := db.NewMysql(c.MysqlConfig)
+	redisConn := db.NewRedis(c.RedisConfig)
 	return &ServiceContext{
 		Config: c,
-		Conn:   sqlConn,
+		Mysql:  mysqlConn,
+		Redis:  redisConn,
 	}
 }

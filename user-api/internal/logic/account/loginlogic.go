@@ -2,6 +2,7 @@ package account
 
 import (
 	"context"
+	"strconv"
 	"time"
 	"user-api/internal/biz"
 	"user-api/internal/model"
@@ -28,7 +29,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	// 1. 校验用户密码
-	userModel := model.NewUserModel(l.svcCtx.Conn)
+	userModel := model.NewUserModel(l.svcCtx.Mysql)
 
 	u, err := userModel.FindByUsernameAndPwd(l.ctx, req.Username, req.Password)
 
@@ -50,6 +51,12 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	if err != nil {
 		l.Logger.Error("生成token失败", err)
 		return nil, biz.TokenError
+	}
+	// 2. 把token存入redis
+	err = l.svcCtx.Redis.SetexCtx(l.ctx, "token:"+token, strconv.FormatInt(u.Id, 10), int(expire))
+	if err != nil {
+		l.Logger.Error("token存入redis失败", err)
+		return nil, biz.RedisError
 	}
 
 	resp = &types.LoginResp{

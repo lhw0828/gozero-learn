@@ -27,7 +27,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterResp, err error) {
-	userModel := model.NewUserModel(l.svcCtx.Conn)
+	userModel := model.NewUserModel(l.svcCtx.Mysql)
 
 	// 检查用户名是否存在
 	u, err := userModel.FindByUsername(l.ctx, req.Username)

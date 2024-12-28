@@ -10,6 +10,7 @@ var (
 	NameOrPwdError   = NewError(10101, "用户名或密码错误")
 	TokenError       = NewError(10102, "token错误")
 	InvalidToken     = NewError(10103, "token无效")
+	RedisError       = NewError(10104, "redis错误")
 )
 
 //var (
